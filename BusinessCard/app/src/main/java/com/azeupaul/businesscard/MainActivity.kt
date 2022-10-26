@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.azeupaul.businesscard.ui.theme.BusinessCardTheme
@@ -63,16 +64,16 @@ fun ProfileSection(modifier: Modifier = Modifier) {
     ) {
         Image(
             painter = image,
-            contentDescription = "Logo Android",
+            contentDescription = stringResource(R.string.logo_android_description),
             modifier = Modifier.width(100.dp).height(100.dp)
         )
         Text(
-            text = "Pablo Saïd",
+            text = stringResource(R.string.title_name_text),
             style = MaterialTheme.typography.h3,
             color = Color.White
         )
         Text(
-            text = "Développeur",
+            text = stringResource(R.string.job_description_text),
             style = MaterialTheme.typography.body1,
             color = Color.Green
         )
@@ -99,12 +100,13 @@ fun InformationSection(modifier: Modifier = Modifier) {
             modifier = Modifier.padding(start = 30.dp, top = 20.dp, bottom = 20.dp)
         ) {
             Icon(
-                Icons.Rounded.Phone, contentDescription = "Phone",
+                Icons.Rounded.Phone,
+                contentDescription = stringResource(R.string.phone_icon_description),
                 tint = Color.Green,
                 modifier = Modifier.padding(end = 20.dp)
             )
             Text(
-                text = "+ (237) 699 99 99 99",
+                text = stringResource(R.string.phone_number_content),
                 color = Color.White
             )
         }
@@ -120,12 +122,13 @@ fun InformationSection(modifier: Modifier = Modifier) {
             modifier = Modifier.padding(start = 30.dp, top = 20.dp, bottom = 20.dp)
         ) {
             Icon(
-                Icons.Rounded.Share, contentDescription = "Phone",
+                Icons.Rounded.Share,
+                contentDescription = stringResource(R.string.share_icon_description),
                 tint = Color.Green,
                 modifier = Modifier.padding(end = 20.dp)
             )
             Text(
-                text = "@azeupaul",
+                text = stringResource(R.string.share_username_text),
                 color = Color.White
             )
         }
@@ -141,12 +144,13 @@ fun InformationSection(modifier: Modifier = Modifier) {
             modifier = Modifier.padding(start = 30.dp, top = 20.dp)
         ) {
             Icon(
-                Icons.Rounded.Email, contentDescription = "Phone",
+                Icons.Rounded.Email,
+                contentDescription = stringResource(R.string.email_icon_description),
                 tint = Color.Green,
                 modifier = Modifier.padding(end = 20.dp)
             )
             Text(
-                text = "pablo_said@android.com",
+                text = stringResource(R.string.email_text),
                 color = Color.White
             )
         }

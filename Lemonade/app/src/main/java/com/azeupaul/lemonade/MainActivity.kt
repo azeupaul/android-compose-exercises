@@ -54,11 +54,19 @@ fun LemonadeApp() {
                 )
             }
             2 -> {
+                val squeezeNumber = (2..4).random()
+                var count = 0
                 LemonTextWithImage(
                     R.drawable.lemon_squeeze,
                     R.string.keep_lemon_tap_title,
                     R.string.lemon_content_description,
-                    { currentStep = 3 }
+                    {
+                        if(count == squeezeNumber){
+                            currentStep = 3
+                        }else{
+                            count++
+                        }
+                    }
                 )
             }
             3 -> {

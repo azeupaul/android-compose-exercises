@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -36,6 +37,7 @@ class MainActivity : ComponentActivity() {
 @Preview(showBackground = true)
 @Composable
 fun LemonadeApp() {
+    // Current step is 1
     var currentStep by remember {
         mutableStateOf(1)
     }
@@ -46,6 +48,7 @@ fun LemonadeApp() {
 
     Surface(modifier = Modifier
         .fillMaxSize()
+        .background(MaterialTheme.colors.background)
         .wrapContentSize(Alignment.Center)) {
 
         when(currentStep){
@@ -55,6 +58,7 @@ fun LemonadeApp() {
                     R.string.lemon_tree_tap_title,
                     R.string.lemon_tree_content_description,
                     {
+                        // Go to next step and generate the squeeze number
                         currentStep = 2
                         squeezeNumber = (2..4).random()
                     }
@@ -66,6 +70,7 @@ fun LemonadeApp() {
                     R.string.keep_lemon_tap_title,
                     R.string.lemon_content_description,
                     {
+                        // Check if the user click squeeze times before ran into next step
                         squeezeNumber--
                         if(0 == squeezeNumber){
                             currentStep = 3
@@ -86,7 +91,7 @@ fun LemonadeApp() {
                     R.drawable.lemon_restart,
                     R.string.empty_glass_tap_title,
                     R.string.empty_glass_content_description,
-                    { currentStep = 1 }
+                    { currentStep = 1 } // Back to first step 
                 )
             }
         }

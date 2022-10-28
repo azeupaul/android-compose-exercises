@@ -36,109 +36,81 @@ class MainActivity : ComponentActivity() {
 @Preview(showBackground = true)
 @Composable
 fun LemonadeApp() {
-    LemonTree(modifier = Modifier
-        .fillMaxSize()
-        .wrapContentSize(Alignment.Center)
-    )
-}
-
-@Composable
-fun LemonTree(modifier: Modifier = Modifier) {
     var currentStep by remember {
         mutableStateOf(1)
     }
-    when(currentStep){
-        1 -> {
-            Column(
-                modifier = modifier,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = stringResource(id = R.string.lemon_tree_tap_title),
-                    fontSize = 18.sp
+
+    Surface(modifier = Modifier
+        .fillMaxSize()
+        .wrapContentSize(Alignment.Center)) {
+
+        when(currentStep){
+            1 -> {
+                LemonTextWithImage(
+                    R.drawable.lemon_tree,
+                    R.string.lemon_tree_tap_title,
+                    R.string.lemon_tree_content_description,
+                    { currentStep = 2 }
                 )
-                Spacer(modifier = Modifier.height(16.dp))
-                Image(
-                    painter = painterResource(id = R.drawable.lemon_tree),
-                    contentDescription = stringResource(
-                        id = R.string.lemon_tree_content_description
-                    ),
-                    modifier = Modifier.border(
-                        1.dp,
-                        Color(105,205,216),
-                        RoundedCornerShape(5.dp)
-                    ).clickable { currentStep = 2 }
+            }
+            2 -> {
+                LemonTextWithImage(
+                    R.drawable.lemon_squeeze,
+                    R.string.keep_lemon_tap_title,
+                    R.string.lemon_content_description,
+                    { currentStep = 3 }
+                )
+            }
+            3 -> {
+                LemonTextWithImage(
+                    R.drawable.lemon_drink,
+                    R.string.drink_lemonade_tap_title,
+                    R.string.glass_content_description,
+                    { currentStep = 4 }
+                )
+            }
+            else -> {
+                LemonTextWithImage(
+                    R.drawable.lemon_restart,
+                    R.string.empty_glass_tap_title,
+                    R.string.empty_glass_content_description,
+                    { currentStep = 1 }
                 )
             }
         }
-        2 -> {
-            Column(
-                modifier = modifier,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = stringResource(id = R.string.keep_lemon_tap_title),
-                    fontSize = 18.sp
+    }
+
+}
+
+@Composable
+fun LemonTextWithImage(
+    imageId: Int,
+    textId: Int,
+    descriptionId: Int,
+    onImageClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = stringResource(id = textId),
+            fontSize = 18.sp
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        Image(
+            painter = painterResource(id = imageId),
+            contentDescription = stringResource(
+                id = descriptionId
+            ),
+            modifier = Modifier
+                .border(
+                    1.dp,
+                    Color(105, 205, 216),
+                    RoundedCornerShape(5.dp)
                 )
-                Spacer(modifier = Modifier.height(16.dp))
-                Image(
-                    painter = painterResource(id = R.drawable.lemon_squeeze),
-                    contentDescription = stringResource(
-                        id = R.string.lemon_content_description
-                    ),
-                    modifier = Modifier.border(
-                        1.dp,
-                        Color(105,205,216),
-                        RoundedCornerShape(5.dp)
-                    ).clickable { currentStep = 3 }
-                )
-            }
-        }
-        3 -> {
-            Column(
-                modifier = modifier,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = stringResource(id = R.string.drink_lemonade_tap_title),
-                    fontSize = 18.sp
-                )
-                Spacer(modifier = Modifier.height(16.dp))
-                Image(
-                    painter = painterResource(id = R.drawable.lemon_drink),
-                    contentDescription = stringResource(
-                        id = R.string.glass_content_description
-                    ),
-                    modifier = Modifier.border(
-                        1.dp,
-                        Color(105,205,216),
-                        RoundedCornerShape(5.dp)
-                    ).clickable { currentStep = 4 }
-                )
-            }
-        }
-        else -> {
-            Column(
-                modifier = modifier,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = stringResource(id = R.string.empty_glass_tap_title),
-                    fontSize = 18.sp
-                )
-                Spacer(modifier = Modifier.height(16.dp))
-                Image(
-                    painter = painterResource(id = R.drawable.lemon_restart),
-                    contentDescription = stringResource(
-                        id = R.string.empty_glass_content_description
-                    ),
-                    modifier = Modifier.border(
-                        1.dp,
-                        Color(105,205,216),
-                        RoundedCornerShape(5.dp)
-                    ).clickable { currentStep = 1 }
-                )
-            }
-        }
+                .clickable { onImageClick() }
+        )
     }
 }

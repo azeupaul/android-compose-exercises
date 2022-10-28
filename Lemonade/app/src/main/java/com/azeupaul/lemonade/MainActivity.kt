@@ -40,6 +40,10 @@ fun LemonadeApp() {
         mutableStateOf(1)
     }
 
+    var squeezeNumber by remember {
+        mutableStateOf(0)
+    }
+
     Surface(modifier = Modifier
         .fillMaxSize()
         .wrapContentSize(Alignment.Center)) {
@@ -50,21 +54,21 @@ fun LemonadeApp() {
                     R.drawable.lemon_tree,
                     R.string.lemon_tree_tap_title,
                     R.string.lemon_tree_content_description,
-                    { currentStep = 2 }
+                    {
+                        currentStep = 2
+                        squeezeNumber = (2..4).random()
+                    }
                 )
             }
             2 -> {
-                val squeezeNumber = (2..4).random()
-                var count = 0
                 LemonTextWithImage(
                     R.drawable.lemon_squeeze,
                     R.string.keep_lemon_tap_title,
                     R.string.lemon_content_description,
                     {
-                        if(count == squeezeNumber){
+                        squeezeNumber--
+                        if(0 == squeezeNumber){
                             currentStep = 3
-                        }else{
-                            count++
                         }
                     }
                 )

@@ -43,61 +43,60 @@ fun SpaceArtScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .fillMaxHeight()
             .padding(16.dp),
-        verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ){
 
         Surface(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(3F)
+                .wrapContentSize(align = Alignment.Center),
             elevation = 16.dp,
-            border = BorderStroke(3.dp, color = Color.LightGray)
+            border = BorderStroke(3.dp, color = Color.DarkGray)
         ) {
             Image(
+                modifier = Modifier.padding(32.dp),
                 painter = painterResource(id = R.drawable.swirling_smoke),
                 contentDescription = null
             )
         }
 
-        Surface(
-            modifier = Modifier.fillMaxWidth(),
-            elevation = 16.dp) {
-            SpaceArtwork(
-                title = "Artwork title",
-                artist = "Artwork artist",
-                year = "Year",
-                modifier = Modifier.fillMaxWidth()
-            )
-        }
+        Column(
+            modifier = Modifier.weight(1F),
+        ) {
 
-        Row(
-            modifier = Modifier.fillMaxWidth().align(alignment = Alignment.CenterHorizontally),
-            verticalAlignment = Alignment.Bottom,
-            horizontalArrangement = Arrangement.SpaceEvenly,
-        ){
-            Button(
-                modifier = Modifier.padding(8.dp),
-                onClick = { /*TODO*/ }) {
-                Text(text = "Previous")
+            Surface(
+                elevation = 16.dp) {
+                SpaceArtwork(
+                    title = "Artwork title",
+                    artist = "Artwork artist",
+                    year = "Year",
+                    modifier = Modifier.fillMaxWidth()
+                )
             }
 
-            Button(
-                modifier = Modifier.padding(8.dp),
-                onClick = { /*TODO*/ }) {
-                Text(text = "Next")
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(alignment = Alignment.CenterHorizontally)
+            ){
+                Button(
+                    modifier = Modifier.padding(8.dp).weight(1F),
+                    onClick = { /*TODO*/ }) {
+                    Text(text = "Previous")
+                }
+
+                Button(
+                    modifier = Modifier.padding(8.dp).weight(1F),
+                    onClick = { /*TODO*/ }) {
+                    Text(text = "Next")
+                }
             }
         }
-    }
-}
-
-@Composable
-fun SpaceArtWall(modifier: Modifier = Modifier) {
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.SpaceEvenly
-    ) {
-        Text(text = "Space Art Wall")
-        SpaceArtwork(title = "Artwork title", artist = "Artwork artist", year = "2022")
     }
 }
 
@@ -112,23 +111,6 @@ fun SpaceArtwork(title: String, artist: String, year: String, modifier: Modifier
             Text(text = " (", fontWeight = FontWeight.Light)
             Text(text = year, fontWeight = FontWeight.Light)
             Text(text = ")", fontWeight = FontWeight.Light)
-        }
-    }
-}
-
-@Composable
-fun SpaceControllers(modifier: Modifier = Modifier) {
-    Row(
-        modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceEvenly
-    ){
-        Button(onClick = { /*TODO*/ }) {
-            Text(text = "Previous")
-        }
-
-        Button(onClick = { /*TODO*/ }) {
-            Text(text = "Next")
         }
     }
 }

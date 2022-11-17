@@ -10,7 +10,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -40,6 +40,45 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun SpaceArtScreen() {
+    var currentArtWork by remember {
+        mutableStateOf(1)
+    }
+    var image = R.drawable.swirling_smoke
+    var title = "Swirling smoke"
+    var artist = "None"
+    var year = "2022"
+    when(currentArtWork) {
+        1 -> {
+            image = R.drawable.swirling_smoke
+            title = "Swirling smoke"
+            artist = "Pablo"
+            year = "2021"
+        }
+        2 -> {
+            image = R.drawable.coffee
+            title = "Coffee"
+            artist = "Saïd"
+            year = "2022"
+        }
+        3 -> {
+            image = R.drawable.peacock_1169961
+            title = "Peacock"
+            artist = "Hisks"
+            year = "2019"
+        }
+        4 -> {
+            image = R.drawable.pexels_moose_photos_1029896
+            title = "Thinking design"
+            artist = "Moose"
+            year = "2020"
+        }
+        5 -> {
+            image = R.drawable.pexels_polina_kovaleva_5546907
+            title = "Take note"
+            artist = "Polina"
+            year = "2022"
+        }
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -54,11 +93,11 @@ fun SpaceArtScreen() {
                 .weight(3F)
                 .wrapContentSize(align = Alignment.Center),
             elevation = 16.dp,
-            border = BorderStroke(3.dp, color = Color.DarkGray)
+            border = BorderStroke(1.dp, color = Color.DarkGray)
         ) {
             Image(
                 modifier = Modifier.padding(32.dp),
-                painter = painterResource(id = R.drawable.swirling_smoke),
+                painter = painterResource(id = image),
                 contentDescription = null
             )
         }
@@ -70,9 +109,9 @@ fun SpaceArtScreen() {
             Surface(
                 elevation = 16.dp) {
                 SpaceArtwork(
-                    title = "Artwork title",
-                    artist = "Artwork artist",
-                    year = "Year",
+                    title = title,
+                    artist = artist,
+                    year = year,
                     modifier = Modifier.fillMaxWidth()
                 )
             }
@@ -86,13 +125,13 @@ fun SpaceArtScreen() {
             ){
                 Button(
                     modifier = Modifier.padding(8.dp).weight(1F),
-                    onClick = { /*TODO*/ }) {
+                    onClick = { if(currentArtWork == 1) currentArtWork = 5 else currentArtWork-- }) {
                     Text(text = "Previous")
                 }
 
                 Button(
                     modifier = Modifier.padding(8.dp).weight(1F),
-                    onClick = { /*TODO*/ }) {
+                    onClick = { if(currentArtWork == 5) currentArtWork = 1 else currentArtWork++ }) {
                     Text(text = "Next")
                 }
             }

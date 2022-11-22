@@ -3,8 +3,12 @@ package cm.azeupaul.topics
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.GridCells
+import androidx.compose.foundation.lazy.LazyVerticalGrid
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -14,6 +18,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import cm.azeupaul.topics.data.DataSource
 import cm.azeupaul.topics.model.Topic
 import cm.azeupaul.topics.ui.theme.TopicsTheme
 
@@ -27,12 +32,34 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-
+                    TopicApp()
                 }
             }
         }
     }
 }
+
+@Composable
+fun TopicApp() {
+    TopicList(topics = DataSource.topics)
+}
+
+@Suppress("OPT_IN_IS_NOT_ENABLED")
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun TopicList(topics: List<Topic>) {
+    LazyVerticalGrid(
+        modifier = Modifier.padding(8.dp),
+        cells = GridCells.Fixed(2),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        items(topics) { topic ->
+            TopicCard(topic)
+        }
+    }
+}
+
 
 @Composable
 fun TopicCard(topic: Topic, modifier: Modifier = Modifier) {

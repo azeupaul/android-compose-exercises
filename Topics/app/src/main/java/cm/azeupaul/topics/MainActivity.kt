@@ -40,7 +40,7 @@ fun TopicCard(topic: Topic, modifier: Modifier = Modifier) {
         modifier = modifier,
         elevation = 4.dp
     ) {
-        Row() {
+        Row {
             Image(
                 modifier = Modifier
                     .size(68.dp)

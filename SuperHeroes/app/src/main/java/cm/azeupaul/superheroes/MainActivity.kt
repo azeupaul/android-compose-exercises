@@ -4,8 +4,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
@@ -42,6 +43,17 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
+fun HeroList(heroes: List<SuperHero>, modifier: Modifier = Modifier) {
+    LazyColumn(
+        modifier = modifier
+    ) {
+        items(heroes) {
+            HeroItem(hero = it, modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp))
+        }
+    }
+}
+
+@Composable
 fun HeroItem(hero: SuperHero, modifier: Modifier = Modifier) {
     Card(
         elevation = 2.dp,
@@ -55,8 +67,7 @@ fun HeroItem(hero: SuperHero, modifier: Modifier = Modifier) {
                 .padding(16.dp)
                 .height(74.dp)
         ) {
-            Column(
-            ) {
+            Column {
                 Text(
                     text = stringResource(id = hero.nameRes),
                     style = MaterialTheme.typography.h3
@@ -86,6 +97,6 @@ fun HeroItem(hero: SuperHero, modifier: Modifier = Modifier) {
 @Composable
 fun DefaultPreview() {
     SuperHeroesTheme {
-        HeroItem(hero = HeroesRepository.heroes[1])
+        HeroList(heroes = HeroesRepository.heroes)
     }
 }

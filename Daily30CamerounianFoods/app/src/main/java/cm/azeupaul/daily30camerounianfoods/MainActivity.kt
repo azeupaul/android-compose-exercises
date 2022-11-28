@@ -40,7 +40,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-
+                    FoodApp()
                 }
             }
         }
@@ -50,10 +50,15 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun FoodApp() {
     val foods = DataSource.foods
-    FoodList(
-        foods = foods,
-        modifier = Modifier.fillMaxWidth()
-    )
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colors.background
+    ) {
+        FoodList(
+            foods = foods,
+            modifier = Modifier.fillMaxWidth()
+        )
+    }
 }
 
 @Composable
@@ -95,7 +100,7 @@ fun ItemFood(
                     easing = LinearOutSlowInEasing
                 )
             ),
-        backgroundColor = MaterialTheme.colors.background
+        backgroundColor = MaterialTheme.colors.onSurface
     ) {
         Column(
             modifier = Modifier.padding(16.dp),
@@ -108,7 +113,9 @@ fun ItemFood(
                 horizontalArrangement = Arrangement.SpaceBetween
             ){
                 Text(
-                    text = "Day $day - $name"
+                    modifier = Modifier.weight(6f),
+                    text = "Day $day - $name",
+                    style = MaterialTheme.typography.h3
                 )
                 IconButton(onClick = { expanded = !expanded }) {
                     Icon(
@@ -130,7 +137,9 @@ fun ItemFood(
                     contentDescription = name,
                 )
                 Spacer(Modifier.height(12.dp))
-                Text(text = description
+                Text(
+                    text = description,
+                    style = MaterialTheme.typography.body1
                 )
             }
         }
@@ -139,9 +148,16 @@ fun ItemFood(
 
 @Preview(showBackground = true)
 @Composable
-fun DefaultPreview() {
-
+fun FoodAppPreview() {
     Daily30CamerounianFoodsTheme {
+        FoodApp()
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun FoodAppDarkPreview() {
+    Daily30CamerounianFoodsTheme(darkTheme = true) {
         FoodApp()
     }
 }

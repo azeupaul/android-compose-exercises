@@ -20,6 +20,11 @@ val Dancing = FontFamily(
 
 // Set of Material typography styles to start with
 val Typography = Typography(
+    h2 = TextStyle(
+        fontFamily = Poppins,
+        fontWeight = FontWeight.Bold,
+        fontSize = 20.sp
+    ),
     h3 = TextStyle(
         fontFamily = Dancing,
         fontWeight = FontWeight.Bold,

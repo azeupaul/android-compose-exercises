@@ -20,9 +20,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import cm.azeupaul.daily30camerounianfoods.data.DataSource
+import cm.azeupaul.daily30camerounianfoods.model.Food
 import cm.azeupaul.daily30camerounianfoods.ui.theme.Daily30CamerounianFoodsTheme
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,10 +46,17 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun ItemFood(modifier: Modifier = Modifier) {
+fun ItemFood(
+    food: Food,
+    modifier: Modifier = Modifier
+) {
     var expanded by remember {
       mutableStateOf(false)
     }
+
+    val day = food.day.toString()
+    val name = stringResource(id = food.name)
+    val description = stringResource(id = food.content)
 
     Card(
         modifier = modifier
@@ -69,7 +80,7 @@ fun ItemFood(modifier: Modifier = Modifier) {
                 horizontalArrangement = Arrangement.SpaceBetween
             ){
                 Text(
-                    text = "Day 1 - Poulet Dg"
+                    text = "Day $day - $name"
                 )
                 IconButton(onClick = { expanded = !expanded }) {
                     Icon(
@@ -86,16 +97,12 @@ fun ItemFood(modifier: Modifier = Modifier) {
                         .fillMaxWidth()
                         .height(200.dp)
                         .clip(RoundedCornerShape(16.dp)),
-                    painter = painterResource(id = R.drawable.poulet_dg),
+                    painter = painterResource(id = food.image),
                     contentScale = ContentScale.Crop,
-                    contentDescription = "Poulet DG",
+                    contentDescription = name,
                 )
                 Spacer(Modifier.height(12.dp))
-                Text(text = "DG pour \"Directeur Général\" car c'est un plat qui est souv" +
-                        "ent cuisiné pour recevoir les personnalités. Ce plat composé de poulet, " +
-                        "de bananes plantain, de légumes et de condiments est un véritable délice " +
-                        "qui fait toujours l'unanimité et retiendra votre mari à la maison, " +
-                        "ne serait-ce qu'une soirée."
+                Text(text = description
                 )
             }
         }
@@ -105,7 +112,8 @@ fun ItemFood(modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
+    val foods = DataSource.foods
     Daily30CamerounianFoodsTheme {
-        ItemFood()
+        ItemFood(foods[0])
     }
 }

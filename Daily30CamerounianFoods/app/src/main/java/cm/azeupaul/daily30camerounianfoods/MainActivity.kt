@@ -8,6 +8,8 @@ import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -40,6 +42,32 @@ class MainActivity : ComponentActivity() {
                 ) {
 
                 }
+            }
+        }
+    }
+}
+
+@Composable
+fun FoodApp() {
+    val foods = DataSource.foods
+    FoodList(
+        foods = foods,
+        modifier = Modifier.fillMaxWidth()
+    )
+}
+
+@Composable
+fun FoodList(
+    foods: List<Food>, modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier
+    ) {
+        LazyColumn(
+            contentPadding = PaddingValues(16.dp)
+        ) {
+            items(foods) { item: Food ->
+                ItemFood(food = item, modifier = Modifier.padding(vertical = 8.dp))
             }
         }
     }
@@ -112,8 +140,8 @@ fun ItemFood(
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    val foods = DataSource.foods
+
     Daily30CamerounianFoodsTheme {
-        ItemFood(foods[0])
+        FoodApp()
     }
 }
